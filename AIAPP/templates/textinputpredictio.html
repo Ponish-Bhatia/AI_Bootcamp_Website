@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}The Predictor{% endblock %}
+{% block content %}
+<h5>Provide values per 100 gram.</h5>
+<form method="POST">
+{% load widget_tweaks %}
+{% csrf_token %}
+{%if er%}
+<div class="alert alert-warning">{{ er }}</div>
+{%endif%}
+{% for the_form in form %}
+<div class="form-floating mb-3">
+{% render_field the_form placeholder='a' class='form-control' %}
+{{ the_form.label_tag }}
+</div>
+{% endfor %}
+<button class='btn btn-success'>Submit</button>
+</form>
+{% endblock %}

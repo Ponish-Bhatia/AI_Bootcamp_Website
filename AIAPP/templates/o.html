@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}The Predictor{% endblock %}
+{% block content %}
+<style>
+  #camera{
+    width: 350px;
+    height: 350px;
+    border: 1px solid black;
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js" integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw==" crossorigin="anonymous"></script>
+<script>
+Webcam.set({
+  width: 350,
+  height: 350,
+  image_format:'jpeg',
+  jpeg_quality:90
+})
+Webcam.attach("#camera")
+function take_snapshot(){
+  Webcam.snap(function(data_uri){
+    document.getElementById('results').innerHTML = '<img src="'+data_uri+'">';
+  })
+}
+</script>
+<h3>Please ensure that all the text is clearly visible and there is no excess light falling on the text.</h3>
+<ul>
+  <li>Right click the image that will come when you capture.</li>
+  <li>Save the image.</li>
+  <li>Upload it <a href='{% url "predict" %}'>here</a>.</li>
+  <li>Resize the image so that the text is visible.</li>
+  <li>I recommend to use <a href='{% url "text" %}'>this</a> instead of capturing the image.</li>
+</ul>
+<div id="camera">
+</div>
+<button onclick="take_snapshot()">Capture</button>
+<div id='results'></div>
+{% endblock %}

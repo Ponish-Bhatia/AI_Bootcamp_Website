@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Predict{% endblock %}
+{% block content %}
+<p>Click on the "Choose File" button to upload an image</p>
+<h5>Provide values per 100 gram. If you have an image with values per something else, you can use it <a href='{%url "text"%}'>here</a>.</h5>
+<h5>The process will take around 30 - 40 seconds. You gotta wait after clicking submit.</h5>
+<form method='POST' enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class='container text-center'>
+  <div class="table-responsive">
+    <table class="table text-center">
+      {{ form.as_table }}
+    </table>
+  </div>
+</div>
+  <button type="submit" name="button" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}
